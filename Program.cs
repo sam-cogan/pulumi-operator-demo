@@ -15,7 +15,7 @@ return await Pulumi.Deployment.RunAsync(() =>
     // Create an Azure resource (Storage Account)
     var storageAccount = new StorageAccount("sa", new StorageAccountArgs
     {
-        AccountName = $"operator{config.Require("prefix")}",
+        AccountName = $"opdemosc{config.Require("prefix")}",
         ResourceGroupName = resourceGroup.Name,
         Sku = new SkuArgs
         {
