@@ -1,0 +1,3 @@
+config:
+  operator-demo:prefix: k8
+  azure-native:location: westeurope

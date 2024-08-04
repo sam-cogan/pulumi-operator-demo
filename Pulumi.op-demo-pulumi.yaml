@@ -1,0 +1,3 @@
+config:
+  operator-demo:prefix: pulumi
+  azure-native:location: westeurope
