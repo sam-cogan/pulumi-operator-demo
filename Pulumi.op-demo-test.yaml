@@ -1,0 +1,3 @@
+config:
+  operator-demo:prefix: test
+  azure-native:location: westeurope

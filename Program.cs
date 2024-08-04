@@ -6,12 +6,16 @@ using System.Collections.Generic;
 
 return await Pulumi.Deployment.RunAsync(() =>
 {
+    var config = new Pulumi.Config();
     // Create an Azure Resource Group
-    var resourceGroup = new ResourceGroup("resourceGroup");
+    var resourceGroup = new ResourceGroup("resourceGroup", new ResourceGroupArgs(){
+        ResourceGroupName= $"operator-demo-{config.Require("prefix")}"
+    } );
 
     // Create an Azure resource (Storage Account)
     var storageAccount = new StorageAccount("sa", new StorageAccountArgs
     {
+        AccountName = $"operator{config.Require("prefix")}",
         ResourceGroupName = resourceGroup.Name,
         Sku = new SkuArgs
         {
