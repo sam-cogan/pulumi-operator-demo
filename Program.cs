@@ -36,7 +36,20 @@ return await Pulumi.Deployment.RunAsync(() =>
         return Output.CreateSecret(firstKey);
     });
 
-    // Export the primary key of the Storage Account
+  var virtualNetwork = new Pulumi.AzureNative.Network.VirtualNetwork("virtualNetwork", new()
+    {
+        AddressSpace = new Pulumi.AzureNative.Network.Inputs.AddressSpaceArgs
+        {
+            AddressPrefixes = new[]
+            {
+                "10.0.0.0/16",
+            },
+        },
+        FlowTimeoutInMinutes = 10,
+        ResourceGroupName = resourceGroup.Name,
+        VirtualNetworkName = $"{config.Require("prefix")}-vnet",
+    });
+      // Export the primary key of the Storage Account
     return new Dictionary<string, object?>
     {
         ["primaryStorageKey"] = primaryStorageKey
