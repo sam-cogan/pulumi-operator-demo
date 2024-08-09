@@ -24,17 +24,17 @@ return await Pulumi.Deployment.RunAsync(() =>
         Kind = Kind.StorageV2
     });
 
-    var storageAccountKeys = ListStorageAccountKeys.Invoke(new ListStorageAccountKeysInvokeArgs
-    {
-        ResourceGroupName = resourceGroup.Name,
-        AccountName = storageAccount.Name
-    });
+    // var storageAccountKeys = ListStorageAccountKeys.Invoke(new ListStorageAccountKeysInvokeArgs
+    // {
+    //     ResourceGroupName = resourceGroup.Name,
+    //     AccountName = storageAccount.Name
+    // });
 
-    var primaryStorageKey = storageAccountKeys.Apply(accountKeys =>
-    {
-        var firstKey = accountKeys.Keys[0].Value;
-        return Output.CreateSecret(firstKey);
-    });
+    // var primaryStorageKey = storageAccountKeys.Apply(accountKeys =>
+    // {
+    //     var firstKey = accountKeys.Keys[0].Value;
+    //     return Output.CreateSecret(firstKey);
+    // });
 
   var virtualNetwork = new Pulumi.AzureNative.Network.VirtualNetwork("virtualNetwork", new()
     {
@@ -49,9 +49,9 @@ return await Pulumi.Deployment.RunAsync(() =>
         ResourceGroupName = resourceGroup.Name,
         VirtualNetworkName = $"{config.Require("prefix")}-vnet",
     });
-      // Export the primary key of the Storage Account
-    return new Dictionary<string, object?>
-    {
-        ["primaryStorageKey"] = primaryStorageKey
-    };
+    //   // Export the primary key of the Storage Account
+    // return new Dictionary<string, object?>
+    // {
+    //     ["primaryStorageKey"] = primaryStorageKey
+    // };
 });
